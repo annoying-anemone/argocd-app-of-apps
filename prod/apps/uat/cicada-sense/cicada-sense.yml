@@ -36,18 +36,40 @@ spec:
         values: |
           backend:
             ingress:
-                hosts:
-                  - host: cicada-sense-uat.user-00.hoverkraft.cloud
+              enabled: true
+              className: "traefik"
+              hosts:
+                - host: cicada-sense-uat.user-00.hoverkraft.cloud
+                  paths:
+                    - path: /api
+                      pathType: Prefix
+                    - path: /socket.io
+                      pathType: Prefix
           frontend:
             ingress:
-                hosts:
-                  - host: cicada-sense-uat.user-00.hoverkraft.cloud
+              enabled: true
+              className: "traefik"
+              hosts:
+                - host: cicada-sense-uat.user-00.hoverkraft.cloud
+                  paths:
+                    - path: /
+                      pathType: ImplementationSpecific
           live-data-generator:
             api:
-                ingress:
-                  hosts:
-                      - host: cicada-sense-generator-uat.user-00.hoverkraft.cloud
+              ingress:
+                enabled: true
+                className: "traefik"
+                hosts:
+                  - host: cicada-sense-generator-uat.user-00.hoverkraft.cloud
+                    paths:
+                      - path: /api
+                        pathType: Prefix
             ui:
-                ingress:
-                  hosts:
-                      - host: cicada-sense-generator-uat.user-00.hoverkraft.cloud
+              ingress:
+                enabled: true
+                className: "traefik"
+                hosts:
+                  - host: cicada-sense-generator-uat.user-00.hoverkraft.cloud
+                    paths:
+                      - path: /
+                        pathType: Prefix

@@ -39,7 +39,7 @@ spec:
               enabled: true
               className: "traefik"
               hosts:
-                - host: cicada-sense-review.<user-xx>.hoverkraft.cloud # Will be updated by deploy workflow
+                - host: cicada-sense-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
                   paths:
                     - path: /api
                       pathType: Prefix
@@ -50,7 +50,7 @@ spec:
               enabled: true
               className: "traefik"
               hosts:
-                - host: cicada-sense-review.<user-xx>.hoverkraft.cloud # Will be updated by deploy workflow
+                - host: cicada-sense-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
                   paths:
                     - path: /
                       pathType: ImplementationSpecific
@@ -60,7 +60,7 @@ spec:
                 enabled: true
                 className: "traefik"
                 hosts:
-                  - host: cicada-sense-generator-review.<user-xx>.hoverkraft.cloud # Will be updated by deploy workflow
+                  - host: cicada-sense-generator-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
                     paths:
                       - path: /api
                         pathType: Prefix
@@ -69,7 +69,7 @@ spec:
                 enabled: true
                 className: "traefik"
                 hosts:
-                  - host: cicada-sense-generator-review.<user-xx>.hoverkraft.cloud # Will be updated by deploy workflow
+                  - host: cicada-sense-generator-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
                     paths:
                       - path: /
                         pathType: Prefix
