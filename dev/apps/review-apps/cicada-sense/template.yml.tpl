@@ -1,0 +1,53 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cicada-sense-review # Will be updated by deploy workflow
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/application-repository: cicada-sense
+    argocd.argoproj.io/environment: "review"
+  labels:
+    layer: applications
+    service: cicada-sense
+    component: main
+    environment: dev
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    namespace: cicada-sense-review # Will be updated by deploy workflow
+    server: https://192.168.200.101:443
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=false
+      - ServerSideApply=true
+      - SkipDryRunOnMissingResource=true
+    automated:
+      prune: true
+      selfHeal: true
+  sources:
+    - repoURL: ghcr.io/annoying-anemone/cicada-sense/charts/application
+      targetRevision: "" # Will be updated by deploy workflow
+      chart: cicada-sense
+      helm:
+        values: |
+          backend:
+            ingress:
+                hosts:
+                  - host: cicada-sense-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
+          frontend:
+            ingress:
+                hosts:
+                  - host: cicada-sense-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
+          live-data-generator:
+            api:
+                ingress:
+                  hosts:
+                      - host: cicada-sense-generator-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
+            ui:
+                ingress:
+                  hosts:
+                      - host: cicada-sense-generator-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
