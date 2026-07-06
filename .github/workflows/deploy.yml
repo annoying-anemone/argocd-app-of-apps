@@ -13,7 +13,7 @@ concurrency:
 jobs:
   deploy:
     if: ${{ github.event.action == 'deploy' }}
-    uses: hoverkraft-tech/ci-github-publish/.github/workflows/deploy-argocd-app-of-apps.yml@607069025f6c1312680ed0864c4d9f4338b82dfe # 0.26.5
+    uses: hoverkraft-tech/ci-github-publish/.github/workflows/deploy-argocd-app-of-apps.yml@ed354ada70b9f518c2bb663e18a80041c2cf5156 # ratchet:hoverkraft-tech/ci-github-publish/.github/workflows/deploy-argocd-app-of-apps.yml@0.27.1
     permissions:
       contents: read
       pull-requests: write
@@ -24,7 +24,7 @@ jobs:
 
   finish-deploy:
     if: ${{ github.event.action == 'finish-deploy' }}
-    uses: hoverkraft-tech/ci-github-publish/.github/workflows/finish-deploy-argocd-app-of-apps.yml@607069025f6c1312680ed0864c4d9f4338b82dfe # 0.26.5
+    uses: hoverkraft-tech/ci-github-publish/.github/workflows/finish-deploy-argocd-app-of-apps.yml@ed354ada70b9f518c2bb663e18a80041c2cf5156 # ratchet:hoverkraft-tech/ci-github-publish/.github/workflows/finish-deploy-argocd-app-of-apps.yml@0.27.1
     permissions:
       actions: read
       contents: read
@@ -41,33 +41,33 @@ jobs:
     needs: deploy
     runs-on: ubuntu-latest
     permissions:
-        contents: write
+      contents: write
     steps:
-        - name: Wait before finishing deployment
-          run: sleep 180
+      - name: Wait before finishing deployment
+        run: sleep 180
 
-        - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-          id: generate-token
-          with:
-              client-id: ${{ vars.CI_BOT_APP_CLIENT_ID }}
-              private-key: ${{ secrets.CI_BOT_APP_PRIVATE_KEY }} # reusable workflow token override is intentional
+      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # ratchet:actions/create-github-app-token@v3.2.0
+        id: generate-token
+        with:
+          client-id: ${{ vars.CI_BOT_APP_CLIENT_ID }}
+          private-key: ${{ secrets.CI_BOT_APP_PRIVATE_KEY }} # reusable workflow token override is intentional
 
-        - uses: peter-evans/repository-dispatch@28959ce8df70de7be546dd1250a005dd32156697 # v4.0.1
-          with:
-              token: ${{ steps.generate-token.outputs.token }}
-              event-type: finish-deploy
-              client-payload: |
-                {
-                    "deployment-id": "${{ needs.deploy.outputs.deployment-id }}",
-                    "application-repository": "${{ needs.deploy.outputs.repository }}",
-                    "urls": ["https://${{ needs.deploy.outputs.url }}"],
-                    "status": "Synced",
-                    "description": "deployment successful"
-                }
+      - uses: peter-evans/repository-dispatch@28959ce8df70de7be546dd1250a005dd32156697 # ratchet:peter-evans/repository-dispatch@v4.0.1
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          event-type: finish-deploy
+          client-payload: |
+            {
+                "deployment-id": "${{ needs.deploy.outputs.deployment-id }}",
+                "application-repository": "${{ needs.deploy.outputs.repository }}",
+                "urls": ["https://${{ needs.deploy.outputs.url }}"],
+                "status": "Synced",
+                "description": "deployment successful"
+            }
 
   clean-deploy:
     if: ${{ github.event.action == 'clean-deploy' }}
-    uses: hoverkraft-tech/ci-github-publish/.github/workflows/clean-deploy-argocd-app-of-apps.yml@607069025f6c1312680ed0864c4d9f4338b82dfe # 0.26.5
+    uses: hoverkraft-tech/ci-github-publish/.github/workflows/clean-deploy-argocd-app-of-apps.yml@ed354ada70b9f518c2bb663e18a80041c2cf5156 # ratchet:hoverkraft-tech/ci-github-publish/.github/workflows/clean-deploy-argocd-app-of-apps.yml@0.27.1
     permissions:
       contents: read
       pull-requests: write
