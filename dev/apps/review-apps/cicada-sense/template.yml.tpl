@@ -36,18 +36,40 @@ spec:
         values: |
           backend:
             ingress:
-                hosts:
-                  - host: cicada-sense-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
+              enabled: true
+              className: "traefik"
+              hosts:
+                - host: cicada-sense-review.<user-xx>.hoverkraft.cloud # Will be updated by deploy workflow
+                  paths:
+                    - path: /api
+                      pathType: Prefix
+                    - path: /socket.io
+                      pathType: Prefix
           frontend:
             ingress:
-                hosts:
-                  - host: cicada-sense-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
+              enabled: true
+              className: "traefik"
+              hosts:
+                - host: cicada-sense-review.<user-xx>.hoverkraft.cloud # Will be updated by deploy workflow
+                  paths:
+                    - path: /
+                      pathType: ImplementationSpecific
           live-data-generator:
             api:
-                ingress:
-                  hosts:
-                      - host: cicada-sense-generator-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
+              ingress:
+                enabled: true
+                className: "traefik"
+                hosts:
+                  - host: cicada-sense-generator-review.<user-xx>.hoverkraft.cloud # Will be updated by deploy workflow
+                    paths:
+                      - path: /api
+                        pathType: Prefix
             ui:
-                ingress:
-                  hosts:
-                      - host: cicada-sense-generator-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
+              ingress:
+                enabled: true
+                className: "traefik"
+                hosts:
+                  - host: cicada-sense-generator-review.<user-xx>.hoverkraft.cloud # Will be updated by deploy workflow
+                    paths:
+                      - path: /
+                        pathType: Prefix
