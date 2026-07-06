@@ -1,8 +1,5 @@
 .PHONY: help new-app lint lint-fix
 
-# template-init:start
-.PHONY: init-repo
-# template-init:end
 
 MAKEFLAGS += --silent
 .DEFAULT_GOAL := help
@@ -10,40 +7,6 @@ MAKEFLAGS += --silent
 help: ## Show help message
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m\033[0m\n"} /^[$$()% a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
-# template-init:start
-init-repo: ## Initialize a repository created from this template (usage: make init-repo GITHUB_ORG=my-org BASE_DOMAIN=example.com DEV_CLUSTER_URL=https://dev.example.com PROD_CLUSTER_URL=https://prod.example.com [REPO_NAME=my-repo] [DRY_RUN=1])
-	@if [ ! -f scripts/init_repo.sh ]; then \
-		echo "Repository already initialized: scripts/init_repo.sh has been removed."; \
-		exit 0; \
-	fi
-	@if [ -z "$(GITHUB_ORG)" ]; then \
-		echo "GITHUB_ORG is required"; \
-		echo "Example: make init-repo GITHUB_ORG=my-org BASE_DOMAIN=example.com"; \
-		exit 1; \
-	fi
-	@if [ -z "$(BASE_DOMAIN)" ]; then \
-		echo "BASE_DOMAIN is required"; \
-		echo "Example: make init-repo GITHUB_ORG=my-org BASE_DOMAIN=example.com DEV_CLUSTER_URL=https://dev.example.com PROD_CLUSTER_URL=https://prod.example.com"; \
-		exit 1; \
-	fi
-	@if [ -z "$(DEV_CLUSTER_URL)" ]; then \
-		echo "DEV_CLUSTER_URL is required"; \
-		echo "Example: make init-repo GITHUB_ORG=my-org BASE_DOMAIN=example.com DEV_CLUSTER_URL=https://dev.example.com PROD_CLUSTER_URL=https://prod.example.com"; \
-		exit 1; \
-	fi
-	@if [ -z "$(PROD_CLUSTER_URL)" ]; then \
-		echo "PROD_CLUSTER_URL is required"; \
-		echo "Example: make init-repo GITHUB_ORG=my-org BASE_DOMAIN=example.com DEV_CLUSTER_URL=https://dev.example.com PROD_CLUSTER_URL=https://prod.example.com"; \
-		exit 1; \
-	fi
-	sh scripts/init_repo.sh \
-		--github-org "$(GITHUB_ORG)" \
-		--base-domain "$(BASE_DOMAIN)" \
-		--dev-cluster-url "$(DEV_CLUSTER_URL)" \
-		--prod-cluster-url "$(PROD_CLUSTER_URL)" \
-		$(if $(REPO_NAME),--repo-name "$(REPO_NAME)",) \
-		$(if $(DRY_RUN),--dry-run,)
-# template-init:end
 
 new-app: ## Scaffold a new app across dev, UAT, and production (usage: make new-app APP_NAME=my-app [DRY_RUN=1])
 	@if [ -z "$(APP_NAME)" ]; then \

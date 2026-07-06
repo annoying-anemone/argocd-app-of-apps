@@ -32,5 +32,5 @@ spec:
     directory:
       recurse: true
     path: dev/apps
-    repoURL: git@github.com:<your-org>/<your-repo>.git
+    repoURL: git@github.com:annoying-anemone/argocd-app-of-apps.git
     targetRevision: HEAD

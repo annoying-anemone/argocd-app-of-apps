@@ -19,7 +19,7 @@ spec:
   project: default
   destination:
     namespace: __APP_NAME__-review # Will be updated by deploy workflow
-    server: <url-cluster-dev>
+    server: https://192.168.200.101:443
   syncPolicy:
     syncOptions:
       - CreateNamespace=false
@@ -29,7 +29,7 @@ spec:
       prune: true
       selfHeal: true
   sources:
-    - repoURL: ghcr.io/<your-org>/__APP_NAME__/charts/application
+    - repoURL: ghcr.io/annoying-anemone/__APP_NAME__/charts/application
       targetRevision: "" # Will be updated by deploy workflow
       chart: __APP_NAME__
       helm:
@@ -40,11 +40,11 @@ spec:
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt
             hosts:
-              - host: __APP_NAME__-review.<your-domain> # Will be updated by deploy workflow
+              - host: __APP_NAME__-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
                 paths:
                   - path: /
                     pathType: ImplementationSpecific
             tls:
               - secretName: __APP_NAME__-tls
                 hosts:
-                  - __APP_NAME__-review.<your-domain> # Will be updated by deploy workflow
+                  - __APP_NAME__-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow

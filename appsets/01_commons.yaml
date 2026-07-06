@@ -15,10 +15,10 @@ spec:
             url: https://kubernetes.default.svc
             env: tools
           - cluster: dev
-            url: <url-cluster-dev>
+            url: https://192.168.200.101:443
             env: dev
           - cluster: prod
-            url: <url-cluster-prod>
+            url: https://192.168.200.102:443
             env: prod
   template:
     metadata:
@@ -46,7 +46,7 @@ spec:
           selfHeal: true
       sources:
         # NOTE: please change the organization and repository name here
-        - repoURL: git@github.com:<your-org>/<your-repo>.git
+        - repoURL: git@github.com:annoying-anemone/argocd-app-of-apps.git
           targetRevision: HEAD
           path: commons
           directory:
