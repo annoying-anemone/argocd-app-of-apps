@@ -8,7 +8,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
     argocd.argoproj.io/application-repository: cicada-sense
     argocd.argoproj.io/environment: "review"
-    argocd.argoproj.io/deployment-id: "5327980533"
+    argocd.argoproj.io/deployment-id: "5328145824"
   labels:
     layer: applications
     service: cicada-sense
@@ -37,19 +37,41 @@ spec:
         values: |
           backend:
             ingress:
+              enabled: true
+              className: "traefik"
               hosts:
                 - host: pr-2-cicada-sense-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
+                  paths:
+                    - path: /api
+                      pathType: Prefix
+                    - path: /socket.io
+                      pathType: Prefix
           frontend:
             ingress:
+              enabled: true
+              className: "traefik"
               hosts:
                 - host: pr-2-cicada-sense-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
+                  paths:
+                    - path: /
+                      pathType: ImplementationSpecific
           live-data-generator:
             api:
               ingress:
+                enabled: true
+                className: "traefik"
                 hosts:
-                  - host: cicada-sense-generator-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
+                  - host: cicada-sense-generator-review.<user-xx>.hoverkraft.cloud # Will be updated by deploy workflow
+                    paths:
+                      - path: /api
+                        pathType: Prefix
             ui:
               ingress:
+                enabled: true
+                className: "traefik"
                 hosts:
-                  - host: cicada-sense-generator-review.user-00.hoverkraft.cloud # Will be updated by deploy workflow
-          deploymentId: "5327980533"
+                  - host: cicada-sense-generator-review.<user-xx>.hoverkraft.cloud # Will be updated by deploy workflow
+                    paths:
+                      - path: /
+                        pathType: Prefix
+          deploymentId: "5328145824"
