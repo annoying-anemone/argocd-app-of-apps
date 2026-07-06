@@ -61,7 +61,7 @@ spec:
                 enabled: true
                 className: "traefik"
                 hosts:
-                  - host: cicada-sense-generator-user-00.hoverkraft.cloud
+                  - host: cicada-sense-generator.user-00.hoverkraft.cloud
                     paths:
                       - path: /api
                         pathType: Prefix
@@ -70,7 +70,7 @@ spec:
                 enabled: true
                 className: "traefik"
                 hosts:
-                  - host: cicada-sense-generator-user-00.hoverkraft.cloud
+                  - host: cicada-sense-generator.user-00.hoverkraft.cloud
                     paths:
                       - path: /
                         pathType: Prefix
