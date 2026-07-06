@@ -8,6 +8,7 @@ metadata:
     argocd.argoproj.io/application-repository: cicada-sense
     argocd.argoproj.io/environment: "production"
     argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/deployment-id: "5328819655"
   labels:
     layer: applications
     service: cicada-sense
@@ -30,7 +31,7 @@ spec:
       selfHeal: true
   sources:
     - repoURL: ghcr.io/annoying-anemone/cicada-sense/charts/application
-      targetRevision: "" # Will be updated by deploy workflow
+      targetRevision: "0.1.0" # Will be updated by deploy workflow
       chart: cicada-sense
       helm:
         values: |
@@ -73,3 +74,4 @@ spec:
                     paths:
                       - path: /
                         pathType: Prefix
+          deploymentId: "5328819655"
